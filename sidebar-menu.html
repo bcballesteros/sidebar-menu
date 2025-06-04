@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Avenir Next', sans-serif;
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    .sidebar {
+      width: 240px;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .menu-item {
+      padding: 16px 0;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submenu {
+      display: none;
+      margin-left: 15px;
+    }
+
+    .submenu a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 0;
+      font-size: 18px;
+    }
+
+    .arrow {
+      float: right;
+      transition: transform 0.2s;
+    }
+
+    .expanded .arrow {
+      transform: rotate(90deg);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="menu-item"><a href="#" style="color: #fff; text-decoration: none;">Home</a></div>
+    <div class="menu-item"><a href="#" style="color: #fff; text-decoration: none;">GAD</a></div>
+    <div class="menu-item"><a href="#" style="color: #fff; text-decoration: none;">LRDAD in Action</a></div>
+
+    <div class="menu-item" onclick="toggleRegions(this)">
+      Regions <span class="arrow">▶</span>
+    </div>
+
+    <div class="submenu" id="regionList">
+      <a href="#">Region I</a>
+      <a href="#">Region II</a>
+      <a href="#">Region III</a>
+      <a href="#">Region IV</a>
+      <a href="#">Region V</a>
+      <a href="#">Region VI</a>
+      <a href="#">Region VII</a>
+      <a href="#">Region VIII</a>
+      <a href="#">Region IX</a>
+      <a href="#">Region X</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleRegions(el) {
+      const submenu = document.getElementById('regionList');
+      const arrow = el.querySelector('.arrow');
+      const isOpen = submenu.style.display === 'block';
+
+      submenu.style.display = isOpen ? 'none' : 'block';
+      el.classList.toggle('expanded', !isOpen);
+    }
+  </script>
+
+</body>
+</html>
