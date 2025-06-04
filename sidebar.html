@@ -29,8 +29,8 @@
       font-weight: 600;
       cursor: pointer;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
 
     .menu-left {
@@ -66,6 +66,12 @@
     .expanded .arrow {
       transform: rotate(180deg);
     }
+
+    /* Colorful icons */
+    .fa-home { color: #f39c12; }         /* Orange */
+    .fa-venus { color: #e84393; }        /* Pink */
+    .fa-bullseye { color: #00cec9; }     /* Teal */
+    .fa-map { color: #6c5ce7; }          /* Purple */
   </style>
 </head>
 <body>
@@ -74,28 +80,28 @@
 
     <div class="menu-item">
       <div class="menu-left">
-        <i class="fas fa-home" style="margin-left:5px;"></i>
+        <i class="fas fa-home"></i>
         <a href="#">Home</a>
       </div>
     </div>
 
     <div class="menu-item">
       <div class="menu-left">
-        <i class="fas fa-venus" style="margin-left:5px;"></i>
-        <a href="#">Gender and Development</a>
+        <i class="fas fa-venus"></i>
+        <a href="#">GAD</a>
       </div>
     </div>
 
     <div class="menu-item">
       <div class="menu-left">
-        <i class="fas fa-bullseye" style="margin-left:5px;"></i>
+        <i class="fas fa-bullseye"></i>
         <a href="#">LRDAD in Action</a>
       </div>
     </div>
 
     <div class="menu-item" onclick="toggleRegions(this)">
       <div class="menu-left">
-        <i class="fas fa-map" style="margin-left:5px;"></i>
+        <i class="fas fa-map"></i>
         <span>Regions</span>
       </div>
       <span class="arrow">▼</span>
