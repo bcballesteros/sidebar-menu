@@ -16,7 +16,7 @@
     }
 
     .sidebar {
-      width: 240px;
+      width: 320px; /* increased */
       height: 100vh;
       padding: 20px 15px;
       box-sizing: border-box;
@@ -32,7 +32,7 @@
       justify-content: space-between;
       align-items: center;
     }
-
+    
     .menu-left {
       display: flex;
       align-items: center;
@@ -42,9 +42,9 @@
     }
 
     .menu-left a {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: nowrap; /* prevents wrap */
+      color: #fff;
+      text-decoration: none;
     }
 
     .menu-item a {
@@ -96,8 +96,7 @@
     <div class="menu-item">
       <div class="menu-left">
         <i class="fas fa-venus"></i>
-        <a href="#" style="font-size: 16px;">Gender and Development</a>
-        <!-- <a href="#">Gender and Development</a> -->
+        <a href="#">Gender and Development</a>
       </div>
     </div>
 
