@@ -77,28 +77,45 @@
       transform: rotate(180deg);
     }
 
-    .submenu {
+    .submenu, .province-list {
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.4s ease;
       margin-left: 34px;
     }
 
-    .submenu a {
-      display: block;
+    .submenu-item {
       color: #fff;
       text-decoration: none;
       padding: 6px 0;
       font-size: 16px;
       transition: color 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
     }
 
-    .submenu a:hover {
+    .submenu-item:hover {
       color: #1abc9c;
       transform: translateX(6px);
     }
 
-    .expanded + .submenu {
+    .province-list {
+      margin-left: 20px;
+    }
+
+    .province-item {
+      padding: 4px 0;
+      font-size: 14px;
+      color: #ccc;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .province-item:hover {
+      color: #1abc9c;
+      transform: translateX(6px);
+    }
+
+    .expanded + .submenu,
+    .submenu-item.expanded + .province-list {
       max-height: 500px;
     }
 
@@ -143,23 +160,148 @@
     </div>
 
     <div class="submenu" id="regionList">
-      <a href="#">BARMM</a>
-      <a href="#">CAR</a>
-      <a href="#">NCR</a>
-      <a href="#">Region I</a>
-      <a href="#">Region II</a>
-      <a href="#">Region III</a>
-      <a href="#">Region IV-A</a>
-      <a href="#">Region IV-B</a>
-      <a href="#">Region V</a>
-      <a href="#">Region VI</a>
-      <a href="#">Region VII</a>
-      <a href="#">Region VIII</a>
-      <a href="#">Region IX</a>
-      <a href="#">Region X</a>
-      <a href="#">Region XI</a>
-      <a href="#">Region XII</a>
-      <a href="#">Region XIII</a>
+      <div class="submenu-item" onclick="toggleProvince(event, this)">BARMM</div>
+      <div class="province-list">
+        <div class="province-item">Basilan</div>
+        <div class="province-item">Lanao del Sur</div>
+        <div class="province-item">Maguindanao</div>
+        <div class="province-item">Sulu</div>
+        <div class="province-item">Tawi-Tawi</div>
+      </div>
+
+      <div class="submenu-item" onclick="toggleProvince(event, this)">CAR</div>
+      <div class="province-list">
+        <div class="province-item">Abra</div>
+        <div class="province-item">Apayao</div>
+        <div class="province-item">Benguet</div>
+        <div class="province-item">Ifugao</div>
+        <div class="province-item">Kalinga</div>
+        <div class="province-item">Mountain Province</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">NCR</div>
+      <div class="province-list">
+        <div class="province-item">Metro Manila</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region I</div>
+      <div class="province-list">
+        <div class="province-item">Ilocos Norte</div>
+        <div class="province-item">Ilocos Sur</div>
+        <div class="province-item">La Union</div>
+        <div class="province-item">Pangasinan</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region II</div>
+      <div class="province-list">
+        <div class="province-item">Batanes</div>
+        <div class="province-item">Cagayan</div>
+        <div class="province-item">Isabela</div>
+        <div class="province-item">Nueva Vizcaya</div>
+        <div class="province-item">Quirino</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region III</div>
+      <div class="province-list">
+        <div class="province-item">Aurora</div>
+        <div class="province-item">Bataan</div>
+        <div class="province-item">Bulacan</div>
+        <div class="province-item">Nueva Ecija</div>
+        <div class="province-item">Pampanga</div>
+        <div class="province-item">Tarlac</div>
+        <div class="province-item">Zambales</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region IV-A</div>
+      <div class="province-list">
+        <div class="province-item">Batangas</div>
+        <div class="province-item">Cavite</div>
+        <div class="province-item">Laguna</div>
+        <div class="province-item">Quezon</div>
+        <div class="province-item">Rizal</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region IV-B</div>
+      <div class="province-list">
+        <div class="province-item">Marinduque</div>
+        <div class="province-item">Occidental Mindoro</div>
+        <div class="province-item">Oriental Mindoro</div>
+        <div class="province-item">Palawan</div>
+        <div class="province-item">Romblon</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region V</div>
+      <div class="province-list">
+        <div class="province-item">Albay</div>
+        <div class="province-item">Camarines Norte</div>
+        <div class="province-item">Camarines Sur</div>
+        <div class="province-item">Catanduanes</div>
+        <div class="province-item">Masbate</div>
+        <div class="province-item">Sorsogon</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region VI</div>
+      <div class="province-list">
+        <div class="province-item">Aklan</div>
+        <div class="province-item">Antique</div>
+        <div class="province-item">Capiz</div>
+        <div class="province-item">Guimaras</div>
+        <div class="province-item">Iloilo</div>
+        <div class="province-item">Negros Occidental</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region VII</div>
+      <div class="province-list">
+        <div class="province-item">Bohol</div>
+        <div class="province-item">Cebu</div>
+        <div class="province-item">Negros Oriental</div>
+        <div class="province-item">Siquijor</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region VIII</div>
+      <div class="province-list">
+        <div class="province-item">Biliran</div>
+        <div class="province-item">Eastern Samar</div>
+        <div class="province-item">Leyte</div>
+        <div class="province-item">Northern Samar</div>
+        <div class="province-item">Samar</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region IX</div>
+      <div class="province-list">
+        <div class="province-item">Zamboanga Del Norte</div>
+        <div class="province-item">Zamboanga Del Sur</div>
+        <div class="province-item">Zamboanga Sibugay</div>
+        <div class="province-item">City of Zamboanga</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region X</div>
+      <div class="province-list">
+        <div class="province-item">Bukidnon</div>
+        <div class="province-item">Camiguin</div>
+        <div class="province-item">Lanao Del Norte</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region XI</div>
+      <div class="province-list">
+        <div class="province-item">Davao De Oro</div>
+        <div class="province-item">Davao Del Norte</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region XII</div>
+      <div class="province-list">
+        <div class="province-item">Cotabato</div>
+      </div>
+      
+      <div class="submenu-item" onclick="toggleProvince(event, this)">Region XIII</div>
+      <div class="province-list">
+        <div class="province-item">Agusan Del Norte</div>
+        <div class="province-item">Agusna Del Sur</div>
+        <div class="province-item">Dinagat Islands</div>
+      </div>
+
+      <!-- Add the same structure for each region -->
+
     </div>
   </div>
 
@@ -168,9 +310,34 @@
       el.classList.toggle('expanded');
       const arrow = el.querySelector('.arrow');
       const submenu = document.getElementById('regionList');
-
       submenu.classList.toggle('expanded');
       arrow.classList.toggle('rotated');
+
+      if (!submenu.classList.contains('expanded')) {
+        document.querySelectorAll('.province-list').forEach(p => p.classList.remove('expanded'));
+        document.querySelectorAll('.submenu-item').forEach(item => item.classList.remove('expanded'));
+      }
+    }
+
+    function toggleProvince(event, el) {
+      event.stopPropagation();
+
+      const allProvinces = document.querySelectorAll('.province-list');
+      const allSubmenus = document.querySelectorAll('.submenu-item');
+
+      allProvinces.forEach(p => {
+        if (p !== el.nextElementSibling) p.classList.remove('expanded');
+      });
+
+      allSubmenus.forEach(item => {
+        if (item !== el) item.classList.remove('expanded');
+      });
+
+      el.classList.toggle('expanded');
+      const nextEl = el.nextElementSibling;
+      if (nextEl && nextEl.classList.contains('province-list')) {
+        nextEl.classList.toggle('expanded');
+      }
     }
   </script>
 
