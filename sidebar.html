@@ -30,7 +30,6 @@
       font-weight: 600;
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       border-radius: 8px;
       transition: background-color 0.2s ease;
@@ -48,11 +47,34 @@
       min-width: 0;
     }
 
+    .menu-left i {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .menu-item:hover .menu-left i {
+      transform: scale(1.2);
+    }
+
     .menu-left a,
     .menu-left span {
       color: #fff;
       text-decoration: none;
       white-space: nowrap;
+    }
+
+    .regions-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .arrow {
+      font-size: 14px;
+      transition: transform 0.3s ease;
+    }
+
+    .rotated {
+      transform: rotate(180deg);
     }
 
     .submenu {
@@ -68,43 +90,16 @@
       text-decoration: none;
       padding: 6px 0;
       font-size: 16px;
-      transition: color 0.2s;
+      transition: color 0.2s ease, transform 0.2s ease;
     }
 
     .submenu a:hover {
       color: #1abc9c;
+      transform: translateX(6px);
     }
 
     .expanded + .submenu {
       max-height: 500px;
-    }
-
-    .arrow {
-      font-size: 14px;
-      transition: transform 0.3s ease;
-    }
-
-    .rotated {
-      transform: rotate(180deg);
-    }
-
-    /* Icon Animation */
-    .menu-left i {
-      opacity: 0;
-      transform: translateX(-10px);
-      animation: slideInIcon 0.4s forwards;
-    }
-
-    .menu-item:nth-child(1) i { animation-delay: 0.1s; }
-    .menu-item:nth-child(2) i { animation-delay: 0.2s; }
-    .menu-item:nth-child(3) i { animation-delay: 0.3s; }
-    .menu-item:nth-child(4) i { animation-delay: 0.4s; }
-
-    @keyframes slideInIcon {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
     }
 
     /* Colorful icons */
@@ -141,9 +136,10 @@
     <div class="menu-item" onclick="toggleRegions(this)">
       <div class="menu-left">
         <i class="fas fa-map"></i>
-        <span>Regions</span>
+        <span class="regions-label">
+          Regions <span class="arrow">▼</span>
+        </span>
       </div>
-      <span class="arrow">▼</span>
     </div>
 
     <div class="submenu" id="regionList">
