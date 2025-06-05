@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Sidebar Menu</title>
+  <title>Modern Sidebar Menu</title>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -11,63 +11,72 @@
     body {
       margin: 0;
       font-family: 'Avenir Next', sans-serif;
-      background: #2c3e50;
-      color: #fff;
+      background: #ecf0f1;
     }
 
     .sidebar {
-      width: 320px; /* increased */
+      width: 320px;
       height: 100vh;
       padding: 20px 15px;
       box-sizing: border-box;
-  background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=720&q=80');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+      background-color: #2c3e50;
+      color: #fff;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .menu-item {
-      padding: 10px 0;
+      padding: 12px 10px;
       font-size: 18px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
     }
-    
+
+    .menu-item:hover {
+      background-color: #34495e;
+    }
+
     .menu-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex: 1;
       min-width: 0;
     }
 
-    .menu-left a {
-      white-space: nowrap; /* prevents wrap */
+    .menu-left a,
+    .menu-left span {
       color: #fff;
       text-decoration: none;
-    }
-
-    .menu-item a {
-      color: #fff;
-      text-decoration: none;
+      white-space: nowrap;
     }
 
     .submenu {
-      display: none;
-      margin-top: 5px;
-      margin-left: 30px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease;
+      margin-left: 34px;
     }
 
     .submenu a {
       display: block;
       color: #fff;
       text-decoration: none;
-      padding: 4px 0;
+      padding: 6px 0;
       font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .submenu a:hover {
+      color: #1abc9c;
+    }
+
+    .expanded + .submenu {
+      max-height: 500px; /* enough height to accommodate the items */
     }
 
     .arrow {
@@ -75,21 +84,20 @@
       transition: transform 0.3s ease;
     }
 
-    .expanded .arrow {
+    .rotated {
       transform: rotate(180deg);
     }
 
     /* Colorful icons */
-    .fa-home { color: #f39c12; }         /* Orange */
-    .fa-venus { color: #e84393; }        /* Pink */
-    .fa-bullseye { color: #00cec9; }     /* Teal */
-    .fa-map { color: #6c5ce7; }          /* Purple */
+    .fa-home { color: #f39c12; }
+    .fa-venus { color: #e84393; }
+    .fa-bullseye { color: #00cec9; }
+    .fa-map { color: #6c5ce7; }
   </style>
 </head>
 <body>
 
   <div class="sidebar">
-
     <div class="menu-item">
       <div class="menu-left">
         <i class="fas fa-home"></i>
@@ -138,15 +146,16 @@
       <a href="#">Region XII</a>
       <a href="#">Region XIII</a>
     </div>
-
   </div>
 
   <script>
     function toggleRegions(el) {
+      el.classList.toggle('expanded');
+      const arrow = el.querySelector('.arrow');
       const submenu = document.getElementById('regionList');
-      const isOpen = submenu.style.display === 'block';
-      submenu.style.display = isOpen ? 'none' : 'block';
-      el.classList.toggle('expanded', !isOpen);
+
+      submenu.classList.toggle('expanded');
+      arrow.classList.toggle('rotated');
     }
   </script>
 
