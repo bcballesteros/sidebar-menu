@@ -13,18 +13,22 @@
       font-family: 'Avenir Next', sans-serif;
       background: #ecf0f1;
       position: relative;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .sidebar {
       width: 100%;
-      height: 100vh;
+      height: 100%;
       overflow-y: auto;
       padding: 20px 15px;
       box-sizing: border-box;
       background-color: #2b3643;
       color: #fff;
       box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-      position: relative;
+      position: absolute;
+      top: 0;
+      bottom: 0;
     }
 
     .menu-item {
@@ -126,6 +130,19 @@
     .expanded + .submenu,
     .submenu-item.expanded + .province-list {
       max-height: 500px;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #2b3643;
     }
 
     /* Colorful icons */
