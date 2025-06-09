@@ -5,8 +5,6 @@
   <title>Sidebar Menu</title>
   <link href="https://fonts.googleapis.com/css?family=Avenir+Next:400,700" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Avenir+Next:400,700');
-
     :root {
       --sidebar-collapsed-width: 64px;
       --sidebar-expanded-width: 350px;
@@ -24,9 +22,13 @@
       margin: 0;
       padding: 0;
       font-family: var(--font-family);
-      background: #f5f6fa;
+      background: transparent;
     }
     .sidebar-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
       width: var(--sidebar-collapsed-width);
       background: var(--sidebar-bg);
       color: #fff;
@@ -35,12 +37,7 @@
       flex-direction: column;
       align-items: center;
       transition: width var(--transition-speed) cubic-bezier(0.42, 0, 0.58, 1);
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      z-index: 9999;
-      overflow: hidden;
+      overflow: visible;
       box-shadow: 2px 0 6px rgba(0,0,0,0.10);
       font-family: var(--font-family);
       will-change: width;
@@ -69,7 +66,6 @@
       margin-bottom: 8px;
       outline: none;
       position: relative;
-      /* Extra for smooth hover shadow effect: */
       filter: drop-shadow(0 0 0px transparent);
     }
     .sidebar-menu-item:hover, .sidebar-menu-item:focus {
@@ -86,7 +82,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Enhanced Animation */
       transition:
         transform 0.38s cubic-bezier(0.42,0,0.58,1),
         color 0.22s,
@@ -97,10 +92,8 @@
     .sidebar-menu-item:hover .sidebar-menu-icon,
     .sidebar-menu-item:focus .sidebar-menu-icon {
       transform: scale(1.19) rotate(-11deg);
-      color: var(--accent);
       filter: drop-shadow(0 4px 24px var(--accent));
     }
-
     .sidebar-menu-label {
       margin-left: 22px;
       white-space: nowrap;
@@ -209,6 +202,5 @@
       </li>
     </ul>
   </nav>
-
 </body>
 </html>
