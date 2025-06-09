@@ -36,9 +36,12 @@
       align-items: center;
       transition: width var(--transition-speed) cubic-bezier(0.42, 0, 0.58, 1);
       position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      z-index: 9999;
       overflow: hidden;
       box-shadow: 2px 0 6px rgba(0,0,0,0.10);
-      z-index: 10;
       font-family: var(--font-family);
       will-change: width;
     }
@@ -206,5 +209,6 @@
       </li>
     </ul>
   </nav>
+
 </body>
 </html>
