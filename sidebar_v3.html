@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar Menu</title>
+  <link href="https://fonts.googleapis.com/css?family=Avenir+Next:400,700" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-collapsed-width: 64px;
+      --sidebar-expanded-width: 300px;
+      --sidebar-bg: #013220;
+      --sidebar-hover-bg: #014421;
+      --icon-size: 36px;
+      --icon-expanded-size: 26px;
+      --transition-speed: 0.5s;
+      --transition-fast: 0.22s;
+      --font-family: 'Avenir Next', Arial, sans-serif;
+      --accent: #70c1b3;
+      --purple: #8e44ad;
+      --label-shadow: 0 2px 18px 0 rgba(112, 193, 179, 0.23);
+      --submenu-bg: #014421;
+      --submenu-hover: #3f5d66;
+      --submenu-accent: #63cdda;
+      --down-arrow: #70c1b3;
+      --province-bg: #355E3B;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      background: transparent;
+    }
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: var(--sidebar-expanded-width);
+      background: var(--sidebar-bg);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: width var(--transition-speed) cubic-bezier(0.42, 0, 0.58, 1);
+      overflow: visible;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.10);
+      font-family: var(--font-family);
+      will-change: width;
+    }
+    /* .sidebar-menu:hover,
+    .sidebar-menu:focus-within {
+      width: var(--sidebar-expanded-width);
+    } */
+    .sidebar-menu-list {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-top: 18px;
+    }
+    /* EXPANDED: horizontal layout, icon left, label right */
+    .sidebar-menu-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 6px 10px;
+      min-height: 30px;
+      width: 100%;
+      cursor: pointer;
+      transition: background var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), left var(--transition-speed);
+      text-decoration: none;
+      color: inherit;
+      border-radius: 8px;
+      margin-bottom: 0px;
+      outline: none;
+      position: relative;
+      filter: drop-shadow(0 0 0px transparent);
+      max-width: var(--sidebar-expanded-width);
+      overflow: hidden;
+      left: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    .sidebar-menu-item:hover, .sidebar-menu-item:focus, .sidebar-menu-item.active {
+      background: var(--sidebar-hover-bg);
+      box-shadow: 0 3px 10px 0 rgba(112,193,179,0.10);
+      filter: drop-shadow(0 1px 4px var(--accent));
+      z-index: 1;
+      max-width: var(--sidebar-expanded-width);
+      left: 0;
+    }
+    .sidebar-menu-icon {
+      font-size: var(--icon-expanded-size);
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 13px 0 0;
+      align-self: center;
+      transition:
+        font-size var(--transition-fast),
+        width var(--transition-fast),
+        min-width var(--transition-fast),
+        height var(--transition-fast),
+        min-height var(--transition-fast),
+        margin var(--transition-speed),
+        transform 0.38s cubic-bezier(0.42,0,0.58,1),
+        color 0.22s,
+        filter 0.3s cubic-bezier(0.42,0,0.58,1);
+      will-change: transform, color, filter;
+      filter: drop-shadow(0 0 0 transparent);
+    }
+    .sidebar-menu-item:hover .sidebar-menu-icon,
+    .sidebar-menu-item:focus .sidebar-menu-icon,
+    .sidebar-menu-item.active .sidebar-menu-icon {
+      transform: scale(1.12) rotate(-6deg);
+      filter: drop-shadow(0 2px 6px var(--accent));
+    }
+    /* Gender & Dev icon color - gender symbols, purple and blue */
+    .sidebar-menu-icon.gender svg .fem { stroke: #8e44ad; fill: #f4e1ff;}
+    .sidebar-menu-icon.gender svg .masc { stroke: #2980b9; fill: #d0ebff;}
+    .sidebar-menu-icon.gender svg .join { stroke: #70c1b3;}
+    .sidebar-menu-item:hover .sidebar-menu-icon.gender svg .fem,
+    .sidebar-menu-item.active .sidebar-menu-icon.gender svg .fem { stroke: #a259df; fill: #f7e5ff;}
+    .sidebar-menu-item:hover .sidebar-menu-icon.gender svg .masc,
+    .sidebar-menu-item.active .sidebar-menu-icon.gender svg .masc { stroke: #54a0ff; fill: #d0ebff;}
+    .sidebar-menu-item:hover .sidebar-menu-icon.gender svg .join,
+    .sidebar-menu-item.active .sidebar-menu-icon.gender svg .join { stroke: #38ada9;}
+    /* Regions icon: colored map pin */
+    .sidebar-menu-icon.regions svg .pin-main { fill: #f6e58d; stroke: #f9ca24; }
+    .sidebar-menu-icon.regions svg .pin-dot { fill: #eb4d4b; stroke: #f9ca24; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.regions svg .pin-main,
+    .sidebar-menu-item.active .sidebar-menu-icon.regions svg .pin-main { fill: #ffeaa7; stroke: #f6b93b; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.regions svg .pin-dot,
+    .sidebar-menu-item.active .sidebar-menu-icon.regions svg .pin-dot { fill: #f6b93b; stroke: #e17055; }
+    /* LRDAD in Action target colored */
+    .sidebar-menu-icon.target svg .circ1 { stroke: #fd7272; }
+    .sidebar-menu-icon.target svg .circ2 { stroke: #f7b731; }
+    .sidebar-menu-icon.target svg .circ3 { fill: #45aaf2; stroke: #45aaf2; }
+    .sidebar-menu-icon.target svg .line { stroke: #fd7272; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.target svg .circ1,
+    .sidebar-menu-item.active .sidebar-menu-icon.target svg .circ1 { stroke: #eb2f06; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.target svg .circ2,
+    .sidebar-menu-item.active .sidebar-menu-icon.target svg .circ2 { stroke: #ffeaa7; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.target svg .circ3,
+    .sidebar-menu-item.active .sidebar-menu-icon.target svg .circ3 { fill: #38ada9; stroke: #38ada9; }
+    .sidebar-menu-item:hover .sidebar-menu-icon.target svg .line,
+    .sidebar-menu-item.active .sidebar-menu-icon.target svg .line { stroke: #eb2f06; }
+    .sidebar-menu-label {
+      margin-top: 0;
+      margin-left: 13px;
+      white-space: nowrap;
+      font-size: 15px;
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition:
+        opacity var(--transition-speed) cubic-bezier(0.4, 0.2, 0.2, 1),
+        transform var(--transition-speed) cubic-bezier(0.4, 0.2, 0.2, 1),
+        color 0.18s,
+        filter 0.3s,
+        margin 0.2s;
+      pointer-events: auto;
+      letter-spacing: 0.02em;
+      font-family: var(--font-family);
+      font-weight: 600;
+      filter: blur(0) brightness(1);
+      will-change: opacity, transform, color, filter;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .sidebar-menu-item:hover .sidebar-menu-label,
+    .sidebar-menu-item:focus .sidebar-menu-label,
+    .sidebar-menu-item.active .sidebar-menu-label {
+      color: var(--accent);
+      text-shadow: var(--label-shadow);
+      filter: blur(0) brightness(1.09) drop-shadow(0 0 6px var(--accent));
+      animation: label-pop 0.45s cubic-bezier(0.7,0.2,0.1,1.2) 1;
+    }
+    @keyframes label-pop {
+      0% {
+        transform: translateX(-10px) scale(0.96);
+        opacity: 0.1;
+        filter: blur(1.2px) brightness(0.7);
+      }
+      50% {
+        transform: translateX(4px) scale(1.04);
+        opacity: 1;
+        filter: blur(0.3px) brightness(1.12);
+      }
+      100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        filter: blur(0) brightness(1.09) drop-shadow(0 0 6px var(--accent));
+      }
+    }
+    .down-arrow {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 7px;
+      transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+    .down-arrow svg path {
+      stroke: var(--down-arrow);
+    }
+    .sidebar-menu-item.active .down-arrow {
+      transform: rotate(180deg);
+    }
+    /* Submenu: regions */
+    .submenu {
+      display: none;
+      flex-direction: column;
+      margin-left: 28px;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      background: var(--submenu-bg);
+      border-radius: 7px;
+      box-shadow: 0 1px 5px rgba(99,205,218,0.07);
+      padding: 2px 0 2px 0;
+      position: relative;
+      z-index: 1;
+      min-width: 110px;
+      transition: max-height 0.32s cubic-bezier(0.45,0,0.55,1);
+    }
+    .submenu.open {
+      display: flex;
+      animation: submenu-fadein 0.18s;
+    }
+    @keyframes submenu-fadein {
+      from { opacity: 0; transform: scaleY(0.92);}
+      to   { opacity: 1; transform: scaleY(1);}
+    }
+    /* Province submenus (inside regions) */
+    .submenu .submenu {
+      margin-left: 14px;
+      margin-top: 1px;
+      background: var(--province-bg);
+      min-width: 90px;
+      box-shadow: none;
+    }
+    .submenu-item {
+      padding: 5px 10px 5px 13px;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 
+        background var(--transition-fast), 
+        color 0.18s,
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0px;
+      user-select: none;
+      min-height: 22px;
+      background: transparent;
+    }
+    .submenu-item:hover, .submenu-item:focus, .submenu-item.active {
+      background: var(--sidebar-hover-bg);
+      color: var(--accent);
+      box-shadow: 0 1px 4px 0 rgba(112,193,179,0.10);
+      filter: drop-shadow(0 1px 3px var(--accent));
+    }
+    .submenu-arrow {
+      margin-left: 8px;
+      font-size: 1em;
+      transition: transform 0.3s;
+      opacity: 0.6;
+    }
+    .submenu-item.active > .submenu-arrow {
+      transform: rotate(90deg);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar-menu" tabindex="0">
+    <ul class="sidebar-menu-list">
+      <li>
+        <a href="#home" class="sidebar-menu-item" tabindex="0">
+          <span class="sidebar-menu-icon home" aria-label="Home">
+            <!-- Home SVG: Modern house, green/blue -->
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14 L16 4 L28 14" stroke="#00b894" fill="none"/>
+              <rect x="8" y="14" width="16" height="12" rx="2" fill="#55efc4" stroke="#00b894"/>
+              <rect x="15" y="20" width="2" height="6" rx="1" fill="#00b894"/>
+            </svg>
+          </span>
+          <span class="sidebar-menu-label">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#gender" class="sidebar-menu-item" tabindex="0">
+          <span class="sidebar-menu-icon gender" aria-label="Gender and Development">
+            <!-- Gender symbols (intertwined male/female) SVG -->
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+              <!-- Female symbol -->
+              <circle class="fem" cx="12" cy="18" r="5" stroke-width="2.2"/>
+              <line class="fem" x1="12" y1="23" x2="12" y2="27" stroke-width="2.2"/>
+              <line class="fem" x1="10" y1="25" x2="14" y2="25" stroke-width="2.2"/>
+              <!-- Male symbol -->
+              <circle class="masc" cx="20" cy="10" r="5" stroke-width="2.2"/>
+              <line class="masc" x1="22.9" y1="7.1" x2="27" y2="3" stroke-width="2.2"/>
+              <line class="masc" x1="23.5" y1="3" x2="27" y2="3" stroke-width="2.2"/>
+              <line class="masc" x1="27" y1="3" x2="27" y2="6.5" stroke-width="2.2"/>
+              <!-- Join line -->
+              <line class="join" x1="16.5" y1="13.5" x2="15" y2="15" stroke-width="2.2"/>
+            </svg>
+          </span>
+          <span class="sidebar-menu-label">Gender and Development</span>
+        </a>
+      </li>
+      <li>
+        <a href="#lrdad" class="sidebar-menu-item" tabindex="0">
+          <span class="sidebar-menu-icon target" aria-label="LRDAD in Action">
+            <!-- Colored Target Icon SVG -->
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" stroke-width="2.2">
+              <circle class="circ1" cx="16" cy="16" r="10"/>
+              <circle class="circ2" cx="16" cy="16" r="6"/>
+              <circle class="circ3" cx="16" cy="16" r="2"/>
+              <line class="line" x1="16" y1="2" x2="16" y2="7"/>
+              <line class="line" x1="16" y1="25" x2="16" y2="30"/>
+              <line class="line" x1="2" y1="16" x2="7" y2="16"/>
+              <line class="line" x1="25" y1="16" x2="30" y2="16"/>
+            </svg>
+          </span>
+          <span class="sidebar-menu-label">LRDAD in Action</span>
+        </a>
+      </li>
+      <li>
+        <div class="sidebar-menu-item regions" tabindex="0" id="regionsMenu" style="user-select:none;">
+          <span class="sidebar-menu-icon regions" aria-label="Regions">
+            <!-- Map Pin Icon (colored) -->
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+              <path class="pin-main" d="M16 29s9-9.29 9-15A9 9 0 1 0 7 14c0 5.71 9 15 9 15z" stroke-width="2"/>
+              <circle class="pin-dot" cx="16" cy="14" r="3" stroke-width="2"/>
+            </svg>
+          </span>
+          <span class="sidebar-menu-label">Regions
+            <span class="down-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div class="submenu regions-submenu open" id="regionsSubmenu">
+          <div class="submenu-item barmm" id="barmmMenu">
+            BARMM
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu barmm-submenu" id="barmmSubmenu">
+            <div class="submenu-item">Basilan</div>
+            <div class="submenu-item">Lanao Del Sur</div>
+            <div class="submenu-item">Maguindanao</div>
+            <div class="submenu-item">Sulu</div>
+            <div class="submenu-item">Tawi</div>
+          </div>
+          <div class="submenu-item car" id="carMenu">
+            CAR
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu car-submenu" id="carSubmenu">
+            <div class="submenu-item">Abra</div>
+            <div class="submenu-item">Apayao</div>
+            <div class="submenu-item">Benguet</div>
+            <div class="submenu-item">Ifugao</div>
+            <div class="submenu-item">Kalinga</div>
+            <div class="submenu-item">Mountain Province</div>
+          </div>
+          <div class="submenu-item ncr" id="ncrMenu">
+            NCR
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu ncr-submenu" id="ncrSubmenu">
+            <div class="submenu-item">Metro Manila</div>
+          </div>
+          <!-- Region I to Region XIII in roman numerals -->
+          <div class="submenu-item">Region I</div>
+          <div class="submenu-item">Region II</div>
+          <div class="submenu-item">Region III</div>
+          <div class="submenu-item">Region IV</div>
+          <div class="submenu-item">Region V</div>
+          <div class="submenu-item">Region VI</div>
+          <div class="submenu-item">Region VII</div>
+          <div class="submenu-item">Region VIII</div>
+          <div class="submenu-item">Region IX</div>
+          <div class="submenu-item">Region X</div>
+          <div class="submenu-item">Region XI</div>
+          <div class="submenu-item">Region XII</div>
+          <div class="submenu-item">Region XIII</div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <script>
+    // JS for click-to-toggle submenus (no jQuery, works in iframe)
+    document.addEventListener('DOMContentLoaded', function () {
+      // Regions submenu
+      const regionsMenu = document.getElementById('regionsMenu');
+      const regionsSubmenu = document.getElementById('regionsSubmenu');
+      // BARMM submenu
+      const barmmMenu = document.getElementById('barmmMenu');
+      const barmmSubmenu = document.getElementById('barmmSubmenu');
+      // CAR submenu
+      const carMenu = document.getElementById('carMenu');
+      const carSubmenu = document.getElementById('carSubmenu');
+      // NCR submenu
+      const ncrMenu = document.getElementById('ncrMenu');
+      const ncrSubmenu = document.getElementById('ncrSubmenu');
+
+      // Keep regions submenu open by default
+      if (regionsSubmenu) regionsSubmenu.classList.add('open');
+      if (regionsMenu) regionsMenu.classList.add('active');
+      // But hide bar, car, ncr province submenus
+      if (barmmSubmenu) barmmSubmenu.classList.remove('open');
+      if (carSubmenu) carSubmenu.classList.remove('open');
+      if (ncrSubmenu) ncrSubmenu.classList.remove('open');
+
+      function closeAllSubmenus() {
+        // Keep regions open
+        if (regionsMenu) regionsMenu.classList.add('active');
+        if (regionsSubmenu) regionsSubmenu.classList.add('open');
+        // Hide others
+        barmmMenu.classList.remove('active');
+        if (barmmSubmenu) barmmSubmenu.classList.remove('open');
+        carMenu.classList.remove('active');
+        if (carSubmenu) carSubmenu.classList.remove('open');
+        ncrMenu.classList.remove('active');
+        if (ncrSubmenu) ncrSubmenu.classList.remove('open');
+      }
+
+      // Only one subsubmenu open at a time
+      function closeSubmenusExcept(id) {
+        if (id !== 'barmm') {
+          barmmMenu.classList.remove('active');
+          if (barmmSubmenu) barmmSubmenu.classList.remove('open');
+        }
+        if (id !== 'car') {
+          carMenu.classList.remove('active');
+          if (carSubmenu) carSubmenu.classList.remove('open');
+        }
+        if (id !== 'ncr') {
+          ncrMenu.classList.remove('active');
+          if (ncrSubmenu) ncrSubmenu.classList.remove('open');
+        }
+      }
+
+      // Toggle Regions submenu on click (cannot close)
+      if (regionsMenu && regionsSubmenu) {
+        regionsMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+          // Do not allow closing regions menu
+          regionsMenu.classList.add('active');
+          regionsSubmenu.classList.add('open');
+        });
+      }
+
+      // Toggle BARMM submenu on click, and hide others
+      if (barmmMenu && barmmSubmenu) {
+        barmmMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const isOpen = barmmSubmenu.classList.contains('open');
+          closeSubmenusExcept('barmm');
+          barmmMenu.classList.remove('active');
+          barmmSubmenu.classList.remove('open');
+          if (!isOpen) {
+            barmmMenu.classList.add('active');
+            barmmSubmenu.classList.add('open');
+          }
+        });
+      }
+
+      // Toggle CAR submenu on click, and hide others
+      if (carMenu && carSubmenu) {
+        carMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const isOpen = carSubmenu.classList.contains('open');
+          closeSubmenusExcept('car');
+          carMenu.classList.remove('active');
+          carSubmenu.classList.remove('open');
+          if (!isOpen) {
+            carMenu.classList.add('active');
+            carSubmenu.classList.add('open');
+          }
+        });
+      }
+
+      // Toggle NCR submenu on click, and hide others
+      if (ncrMenu && ncrSubmenu) {
+        ncrMenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const isOpen = ncrSubmenu.classList.contains('open');
+          closeSubmenusExcept('ncr');
+          ncrMenu.classList.remove('active');
+          ncrSubmenu.classList.remove('open');
+          if (!isOpen) {
+            ncrMenu.classList.add('active');
+            ncrSubmenu.classList.add('open');
+          }
+        });
+      }
+
+      // Close submenus when clicking outside, keep regions open
+      document.body.addEventListener('click', function (e) {
+        closeAllSubmenus();
+      });
+
+      // Prevent closing when clicking inside
+      if (regionsSubmenu) {
+        regionsSubmenu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
