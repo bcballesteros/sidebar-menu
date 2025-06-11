@@ -10,7 +10,8 @@
       --sidebar-expanded-width: 360px;
       --sidebar-bg: #23272f;
       --sidebar-hover-bg: #343a40;
-      --icon-size: 26px;
+      --icon-size: 36px;
+      --icon-expanded-size: 26px;
       --transition-speed: 0.5s;
       --transition-fast: 0.22s;
       --font-family: 'Avenir Next', Arial, sans-serif;
@@ -58,10 +59,13 @@
       list-style: none;
       margin-top: 18px;
     }
+    /* COLLAPSED: vertical layout, icon at top, label below, both centered */
     .sidebar-menu-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      padding: 6px 10px;
+      justify-content: flex-start;
+      padding: 7px 0 4px 0;
       width: 100%;
       cursor: pointer;
       transition: background var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast), left var(--transition-speed);
@@ -72,7 +76,7 @@
       outline: none;
       position: relative;
       filter: drop-shadow(0 0 0px transparent);
-      min-height: 30px;
+      min-height: 44px;
       user-select: none;
       box-sizing: border-box;
       left: 0;
@@ -89,18 +93,45 @@
     }
     .sidebar-menu-icon {
       font-size: var(--icon-size);
-      width: 28px;
-      min-width: 28px;
-      text-align: center;
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+      min-height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0 auto 2px auto;
       transition:
+        font-size var(--transition-fast),
+        width var(--transition-fast),
+        min-width var(--transition-fast),
+        height var(--transition-fast),
+        min-height var(--transition-fast),
+        margin var(--transition-speed),
         transform 0.38s cubic-bezier(0.42,0,0.58,1),
         color 0.22s,
         filter 0.3s cubic-bezier(0.42,0,0.58,1);
       will-change: transform, color, filter;
       filter: drop-shadow(0 0 0 transparent);
+    }
+    /* EXPANDED: horizontal layout, icon left, label right */
+    .sidebar-menu:hover .sidebar-menu-item,
+    .sidebar-menu:focus-within .sidebar-menu-item {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 6px 10px;
+      min-height: 30px;
+    }
+    .sidebar-menu:hover .sidebar-menu-icon,
+    .sidebar-menu:focus-within .sidebar-menu-icon {
+      font-size: var(--icon-expanded-size);
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      min-height: 28px;
+      margin: 0 13px 0 0;
+      align-self: center;
     }
     .sidebar-menu-item:hover .sidebar-menu-icon,
     .sidebar-menu-item:focus .sidebar-menu-icon,
@@ -140,16 +171,18 @@
     .sidebar-menu-item.active .sidebar-menu-icon.target svg .line { stroke: #eb2f06; }
 
     .sidebar-menu-label {
-      margin-left: 13px;
+      margin-left: 0;
+      margin-top: 2px;
       white-space: nowrap;
       font-size: 15px;
       opacity: 0;
-      transform: translateX(-14px) scale(0.97);
+      transform: translateY(-6px) scale(0.97);
       transition:
         opacity var(--transition-speed) cubic-bezier(0.4, 0.2, 0.2, 1),
         transform var(--transition-speed) cubic-bezier(0.4, 0.2, 0.2, 1),
         color 0.18s,
-        filter 0.3s;
+        filter 0.3s,
+        margin 0.2s;
       pointer-events: none;
       letter-spacing: 0.02em;
       font-family: var(--font-family);
@@ -158,13 +191,18 @@
       will-change: opacity, transform, color, filter;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
     .sidebar-menu:hover .sidebar-menu-label,
     .sidebar-menu:focus-within .sidebar-menu-label {
       opacity: 1;
+      margin-top: 0;
+      margin-left: 13px;
       transform: translateX(0) scale(1);
       pointer-events: auto;
       filter: blur(0) brightness(1);
+      justify-content: flex-start;
+      align-items: center;
     }
     .sidebar-menu-item:hover .sidebar-menu-label,
     .sidebar-menu-item:focus .sidebar-menu-label,
@@ -276,7 +314,7 @@
         <a href="#home" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon home" aria-label="Home">
             <!-- Home SVG: Modern house, green/blue -->
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 14 L16 4 L28 14" stroke="#00b894" fill="none"/>
               <rect x="8" y="14" width="16" height="12" rx="2" fill="#55efc4" stroke="#00b894"/>
               <rect x="15" y="20" width="2" height="6" rx="1" fill="#00b894"/>
@@ -289,7 +327,7 @@
         <a href="#gender" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon gender" aria-label="Gender and Development">
             <!-- Gender symbols (intertwined male/female) SVG -->
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
               <!-- Female symbol -->
               <circle class="fem" cx="12" cy="18" r="5" stroke-width="2.2"/>
               <line class="fem" x1="12" y1="23" x2="12" y2="27" stroke-width="2.2"/>
@@ -310,7 +348,7 @@
         <a href="#lrdad" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon target" aria-label="LRDAD in Action">
             <!-- Colored Target Icon SVG -->
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke-width="2.2">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none" stroke-width="2.2">
               <circle class="circ1" cx="16" cy="16" r="10"/>
               <circle class="circ2" cx="16" cy="16" r="6"/>
               <circle class="circ3" cx="16" cy="16" r="2"/>
@@ -327,7 +365,7 @@
         <div class="sidebar-menu-item regions" tabindex="0" id="regionsMenu" style="user-select:none;">
           <span class="sidebar-menu-icon regions" aria-label="Regions">
             <!-- Map Pin Icon (colored) -->
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
               <path class="pin-main" d="M16 29s9-9.29 9-15A9 9 0 1 0 7 14c0 5.71 9 15 9 15z" stroke-width="2"/>
               <circle class="pin-dot" cx="16" cy="14" r="3" stroke-width="2"/>
             </svg>
