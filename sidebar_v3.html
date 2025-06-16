@@ -14,10 +14,12 @@
       --font-family: 'Avenir Next', Arial, sans-serif;
       --accent: #70c1b3;
       --yellow-accent: #ffe066;
-      --icon-stroke: #70c1b3;
-      --icon-fill: transparent;
-      --icon-hover-fill: #014421;
-      --icon-hover-stroke: #ffe066;
+      --region-highlight: #22573b;
+      --province-indent: 23px;
+      --province-bar: #70c1b3;
+      --province-bg: #124c34;
+      --province-border: #22573b;
+      --province-highlight: #ffe066;
       --sidebar-highlight: #ffe066;
       --sidebar-focus: #48e1ec;
       --shadow-focus: 0 0 0 3px #48e1ec88;
@@ -143,8 +145,8 @@
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg ellipse,
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg line,
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg polyline {
-      stroke: var(--icon-hover-stroke) !important;
-      fill: var(--icon-hover-fill) !important;
+      stroke: var(--sidebar-highlight) !important;
+      fill: var(--sidebar-hover-bg) !important;
     }
     .sidebar-menu-label {
       margin-top: 0;
@@ -181,7 +183,7 @@
       transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
     }
     .down-arrow svg path {
-      stroke: var(--down-arrow);
+      stroke: var(--sidebar-highlight);
     }
     .sidebar-menu-item.active .down-arrow {
       transform: rotate(180deg);
@@ -254,6 +256,22 @@
       margin-left: 8px;
       z-index: 1;
     }
+    /* Visual difference for provinces under an opened region */
+    .submenu.open.parent-open .submenu-item {
+      background: var(--province-bg);
+      border-left: 4px solid var(--province-bar);
+      margin-left: var(--province-indent);
+      transition: 
+        background 0.18s, 
+        border-left 0.18s,
+        margin-left 0.18s;
+    }
+    .submenu.open.parent-open .submenu-item:hover, 
+    .submenu.open.parent-open .submenu-item:focus {
+      background: var(--region-highlight);
+      color: var(--province-highlight);
+      border-left: 4px solid var(--province-highlight);
+    }
     .submenu-arrow {
       margin-left: 8px;
       font-size: 1em;
@@ -266,7 +284,6 @@
       transform: rotate(90deg);
       opacity: 1;
     }
-    /* Animate submenu-arrow SVG like BARMM when opening */
     .submenu-item .submenu-arrow svg {
       transition: transform 0.22s cubic-bezier(.4,0,0.2,1), stroke 0.18s;
     }
@@ -359,7 +376,6 @@
       <li>
         <div class="sidebar-menu-item regions" tabindex="0" id="regionsMenu" style="user-select:none;">
           <span class="sidebar-menu-icon regions" aria-label="Regions">
-            <!-- Minimalist globe + pin: outlined, blends with theme -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <circle cx="16" cy="16" r="9" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
               <ellipse cx="16" cy="16" rx="9" ry="5" stroke="#ffe066" stroke-width="2.2" fill="none"/>
@@ -655,13 +671,14 @@
       // Keep regions submenu open by default, but don't highlight regions menu
       if (regionsSubmenu) regionsSubmenu.classList.add('open');
       if (regionsMenu) regionsMenu.classList.remove('active');
-      // But hide bar, car, ncr province submenus and all region province submenus
+      // Hide bar, car, ncr, and all region province submenus
       if (barmmSubmenu) barmmSubmenu.classList.remove('open');
       if (carSubmenu) carSubmenu.classList.remove('open');
       if (ncrSubmenu) ncrSubmenu.classList.remove('open');
       regionMenus.forEach(r => {
         var el = document.getElementById(r.submenu);
         if (el) el.classList.remove('open');
+        if (el) el.classList.remove('parent-open');
       });
 
       function closeAllSubmenus() {
@@ -679,7 +696,10 @@
           var menu = document.getElementById(r.menu);
           var submenu = document.getElementById(r.submenu);
           if (menu) menu.classList.remove('active');
-          if (submenu) submenu.classList.remove('open');
+          if (submenu) {
+            submenu.classList.remove('open');
+            submenu.classList.remove('parent-open');
+          }
         });
       }
 
@@ -702,7 +722,10 @@
             var menu = document.getElementById(r.menu);
             var submenu = document.getElementById(r.submenu);
             if (menu) menu.classList.remove('active');
-            if (submenu) submenu.classList.remove('open');
+            if (submenu) {
+              submenu.classList.remove('open');
+              submenu.classList.remove('parent-open');
+            }
           }
         });
       }
@@ -727,6 +750,9 @@
           if (!isOpen) {
             barmmMenu.classList.add('active');
             barmmSubmenu.classList.add('open');
+            barmmSubmenu.classList.add('parent-open');
+          } else {
+            barmmSubmenu.classList.remove('parent-open');
           }
         });
       }
@@ -742,6 +768,9 @@
           if (!isOpen) {
             carMenu.classList.add('active');
             carSubmenu.classList.add('open');
+            carSubmenu.classList.add('parent-open');
+          } else {
+            carSubmenu.classList.remove('parent-open');
           }
         });
       }
@@ -757,6 +786,9 @@
           if (!isOpen) {
             ncrMenu.classList.add('active');
             ncrSubmenu.classList.add('open');
+            ncrSubmenu.classList.add('parent-open');
+          } else {
+            ncrSubmenu.classList.remove('parent-open');
           }
         });
       }
@@ -772,9 +804,11 @@
             closeSubmenusExcept(r.menu);
             menu.classList.remove('active');
             submenu.classList.remove('open');
+            submenu.classList.remove('parent-open');
             if (!isOpen) {
               menu.classList.add('active');
               submenu.classList.add('open');
+              submenu.classList.add('parent-open');
             }
           });
         }
