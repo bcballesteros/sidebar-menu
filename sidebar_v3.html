@@ -141,7 +141,8 @@
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg circle,
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg rect,
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg ellipse,
-    .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg line {
+    .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg line,
+    .sidebar-menu-item:hover:not(.regions) .sidebar-menu-icon svg polyline {
       stroke: var(--icon-hover-stroke) !important;
       fill: var(--icon-hover-fill) !important;
     }
@@ -169,7 +170,7 @@
     .sidebar-menu-item:hover:not(.regions) .sidebar-menu-label,
     .sidebar-menu-item:focus:not(.regions) .sidebar-menu-label {
       color: var(--sidebar-highlight);
-      text-shadow: var(--label-shadow);
+      text-shadow: 0 2px 18px 0 rgba(112, 193, 179, 0.23);
       filter: blur(0) brightness(1.05);
       transform: scale(1.01) translateX(2px);
     }
@@ -258,10 +259,20 @@
       font-size: 1em;
       transition: transform 0.3s;
       opacity: 0.6;
+      display: inline-flex;
+      align-items: center;
     }
     .submenu-item.active > .submenu-arrow {
       transform: rotate(90deg);
       opacity: 1;
+    }
+    /* Animate submenu-arrow SVG like BARMM when opening */
+    .submenu-item .submenu-arrow svg {
+      transition: transform 0.22s cubic-bezier(.4,0,0.2,1), stroke 0.18s;
+    }
+    .submenu-item.active .submenu-arrow svg {
+      transform: rotate(90deg);
+      stroke: var(--yellow-accent);
     }
   </style>
 </head>
@@ -271,7 +282,7 @@
       <li>
         <a href="#home" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon home" aria-label="Home">
-            <!-- Minimalist home icon: outline only, no fill, blends with theme -->
+            <!-- Minimalist home icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <polyline points="8,17 16,9 24,17" stroke="#70c1b3" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               <rect x="11" y="17" width="10" height="7" rx="2" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
@@ -284,7 +295,7 @@
       <li>
         <a href="#gender" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon gender" aria-label="Gender and Development">
-            <!-- Minimalist gender icon: simple line style, blends with theme -->
+            <!-- Minimalist gender icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <circle cx="13" cy="16" r="5" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
               <circle cx="20" cy="11" r="4" stroke="#ffe066" stroke-width="2.2" fill="none"/>
@@ -300,7 +311,7 @@
       <li>
         <a href="#lrdad" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon lrdad" aria-label="LRDAD in Action">
-            <!-- Minimalist target icon: outlined, blends with theme -->
+            <!-- Minimalist target/marker icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <circle cx="16" cy="16" r="9" stroke="#ffe066" stroke-width="2.2" fill="none"/>
               <circle cx="16" cy="16" r="5" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
@@ -317,7 +328,7 @@
       <li>
         <a href="#sitemap" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon sitemap" aria-label="Sitemap in Action">
-            <!-- Minimalist sitemap: outlined, blends with theme -->
+            <!-- Minimalist sitemap icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <rect x="13" y="5" width="6" height="6" rx="2" stroke="#ffe066" stroke-width="2" fill="none"/>
               <line x1="16" y1="11" x2="16" y2="15" stroke="#ffe066" stroke-width="2"/>
@@ -333,6 +344,19 @@
         </a>
       </li>
       <li>
+        <a href="#quick-sitemap-guide" class="sidebar-menu-item" tabindex="0">
+          <span class="sidebar-menu-icon quicksitemap" aria-label="Quick Sitemap Guide">
+            <!-- Minimalist guide icon: book with search, outlined style -->
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect x="8" y="7" width="16" height="18" rx="3" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
+              <circle cx="16" cy="16" r="3" stroke="#ffe066" stroke-width="2"/>
+              <line x1="18.2" y1="18.2" x2="21" y2="21" stroke="#bfa800" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="sidebar-menu-label">Quick Sitemap Guide</span>
+        </a>
+      </li>
+      <li>
         <div class="sidebar-menu-item regions" tabindex="0" id="regionsMenu" style="user-select:none;">
           <span class="sidebar-menu-icon regions" aria-label="Regions">
             <!-- Minimalist globe + pin: outlined, blends with theme -->
@@ -340,7 +364,6 @@
               <circle cx="16" cy="16" r="9" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
               <ellipse cx="16" cy="16" rx="9" ry="5" stroke="#ffe066" stroke-width="2.2" fill="none"/>
               <ellipse cx="16" cy="16" rx="5" ry="9" stroke="#bfa800" stroke-width="2.2" fill="none"/>
-              <!-- Pin -->
               <circle cx="16" cy="12" r="2.2" stroke="#ffe066" stroke-width="2" fill="none"/>
               <rect x="15.2" y="14" width="1.6" height="5" fill="none" stroke="#ffe066" stroke-width="1.6" rx="0.8"/>
             </svg>
@@ -396,19 +419,204 @@
           <div class="submenu ncr-submenu" id="ncrSubmenu">
             <div class="submenu-item">Metro Manila</div>
           </div>
-          <div class="submenu-item">Region I</div>
-          <div class="submenu-item">Region II</div>
-          <div class="submenu-item">Region III</div>
-          <div class="submenu-item">Region IV</div>
-          <div class="submenu-item">Region V</div>
-          <div class="submenu-item">Region VI</div>
-          <div class="submenu-item">Region VII</div>
-          <div class="submenu-item">Region VIII</div>
-          <div class="submenu-item">Region IX</div>
-          <div class="submenu-item">Region X</div>
-          <div class="submenu-item">Region XI</div>
-          <div class="submenu-item">Region XII</div>
-          <div class="submenu-item">Region XIII</div>
+          <div class="submenu-item region1" id="region1Menu">Region I
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region1-submenu" id="region1Submenu">
+            <div class="submenu-item">Ilocos Norte</div>
+            <div class="submenu-item">Ilocos Sur</div>
+            <div class="submenu-item">La Union</div>
+            <div class="submenu-item">Pangasinan</div>
+          </div>
+          <div class="submenu-item region2" id="region2Menu">Region II
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region2-submenu" id="region2Submenu">
+            <div class="submenu-item">Batanes</div>
+            <div class="submenu-item">Cagayan</div>
+            <div class="submenu-item">Isabela</div>
+            <div class="submenu-item">Nueva Vizcaya</div>
+            <div class="submenu-item">Quirino</div>
+          </div>
+          <div class="submenu-item region3" id="region3Menu">Region III
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region3-submenu" id="region3Submenu">
+            <div class="submenu-item">Aurora</div>
+            <div class="submenu-item">Bataan</div>
+            <div class="submenu-item">Bulacan</div>
+            <div class="submenu-item">Nueva Ecija</div>
+            <div class="submenu-item">Pampanga</div>
+            <div class="submenu-item">Tarlac</div>
+            <div class="submenu-item">Zambales</div>
+          </div>
+          <div class="submenu-item region4a" id="region4aMenu">Region IV-A
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region4a-submenu" id="region4aSubmenu">
+            <div class="submenu-item">Batangas</div>
+            <div class="submenu-item">Cavite</div>
+            <div class="submenu-item">Laguna</div>
+            <div class="submenu-item">Quezon</div>
+            <div class="submenu-item">Rizal</div>
+          </div>
+          <div class="submenu-item region4b" id="region4bMenu">Region IV-B
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region4b-submenu" id="region4bSubmenu">
+            <div class="submenu-item">Marinduque</div>
+            <div class="submenu-item">Occidental Mindoro</div>
+            <div class="submenu-item">Oriental Mindoro</div>
+            <div class="submenu-item">Palawan</div>
+            <div class="submenu-item">Romblon</div>
+          </div>
+          <div class="submenu-item region5" id="region5Menu">Region V
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region5-submenu" id="region5Submenu">
+            <div class="submenu-item">Albay</div>
+            <div class="submenu-item">Camarines Norte</div>
+            <div class="submenu-item">Camarines Sur</div>
+            <div class="submenu-item">Catanduanes</div>
+            <div class="submenu-item">Masbate</div>
+            <div class="submenu-item">Sorsogon</div>
+          </div>
+          <div class="submenu-item region6" id="region6Menu">Region VI
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region6-submenu" id="region6Submenu">
+            <div class="submenu-item">Aklan</div>
+            <div class="submenu-item">Antique</div>
+            <div class="submenu-item">Capiz</div>
+            <div class="submenu-item">Guimaras</div>
+            <div class="submenu-item">Iloilo</div>
+            <div class="submenu-item">Negros Occidental</div>
+          </div>
+          <div class="submenu-item region7" id="region7Menu">Region VII
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region7-submenu" id="region7Submenu">
+            <div class="submenu-item">Bohol</div>
+            <div class="submenu-item">Cebu</div>
+            <div class="submenu-item">Negros Oriental</div>
+            <div class="submenu-item">Siquijor</div>
+          </div>
+          <div class="submenu-item region8" id="region8Menu">Region VIII
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region8-submenu" id="region8Submenu">
+            <div class="submenu-item">Biliran</div>
+            <div class="submenu-item">Samar</div>
+            <div class="submenu-item">Eastern Samar</div>
+            <div class="submenu-item">Northern Samar</div>
+            <div class="submenu-item">Leyte</div>
+            <div class="submenu-item">Southern Leyte</div>
+          </div>
+          <div class="submenu-item region9" id="region9Menu">Region IX
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region9-submenu" id="region9Submenu">
+            <div class="submenu-item">Zamboanga Del Norte</div>
+            <div class="submenu-item">Zamboanga Del Sur</div>
+            <div class="submenu-item">Zamboanga Sibugay</div>
+            <div class="submenu-item">City of Zamboanga</div>
+            <div class="submenu-item">City of Isabela</div>
+          </div>
+          <div class="submenu-item region10" id="region10Menu">Region X
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region10-submenu" id="region10Submenu">
+            <div class="submenu-item">Bukidnon</div>
+            <div class="submenu-item">Camiguin</div>
+            <div class="submenu-item">Lanao Del Norte</div>
+            <div class="submenu-item">Misamis Occidental</div>
+            <div class="submenu-item">Misamis Oriental</div>
+          </div>
+          <div class="submenu-item region11" id="region11Menu">Region XI
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region11-submenu" id="region11Submenu">
+            <div class="submenu-item">Davao De Oro</div>
+            <div class="submenu-item">Davao Del Norte</div>
+            <div class="submenu-item">Davao Del Sur</div>
+            <div class="submenu-item">Davao Occidental</div>
+            <div class="submenu-item">Davao Oriental</div>
+          </div>
+          <div class="submenu-item region12" id="region12Menu">Region XII
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region12-submenu" id="region12Submenu">
+            <div class="submenu-item">Cotabato</div>
+            <div class="submenu-item">Sarangani</div>
+            <div class="submenu-item">South Cotabato</div>
+            <div class="submenu-item">Sultan Kudarat</div>
+          </div>
+          <div class="submenu-item region13" id="region13Menu">Region XIII
+            <span class="submenu-arrow">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="submenu region13-submenu" id="region13Submenu">
+            <div class="submenu-item">Agusan Del Norte</div>
+            <div class="submenu-item">Agusan Del Sur</div>
+            <div class="submenu-item">Dinagat Islands</div>
+            <div class="submenu-item">Surigao Del Norte</div>
+            <div class="submenu-item">Surigao Del Sur</div>
+          </div>
         </div>
       </li>
     </ul>
@@ -418,6 +626,22 @@
       // Regions submenu
       const regionsMenu = document.getElementById('regionsMenu');
       const regionsSubmenu = document.getElementById('regionsSubmenu');
+      const regionMenus = [
+        { menu: 'region1Menu', submenu: 'region1Submenu' },
+        { menu: 'region2Menu', submenu: 'region2Submenu' },
+        { menu: 'region3Menu', submenu: 'region3Submenu' },
+        { menu: 'region4aMenu', submenu: 'region4aSubmenu' },
+        { menu: 'region4bMenu', submenu: 'region4bSubmenu' },
+        { menu: 'region5Menu', submenu: 'region5Submenu' },
+        { menu: 'region6Menu', submenu: 'region6Submenu' },
+        { menu: 'region7Menu', submenu: 'region7Submenu' },
+        { menu: 'region8Menu', submenu: 'region8Submenu' },
+        { menu: 'region9Menu', submenu: 'region9Submenu' },
+        { menu: 'region10Menu', submenu: 'region10Submenu' },
+        { menu: 'region11Menu', submenu: 'region11Submenu' },
+        { menu: 'region12Menu', submenu: 'region12Submenu' },
+        { menu: 'region13Menu', submenu: 'region13Submenu' }
+      ];
       // BARMM submenu
       const barmmMenu = document.getElementById('barmmMenu');
       const barmmSubmenu = document.getElementById('barmmSubmenu');
@@ -431,10 +655,14 @@
       // Keep regions submenu open by default, but don't highlight regions menu
       if (regionsSubmenu) regionsSubmenu.classList.add('open');
       if (regionsMenu) regionsMenu.classList.remove('active');
-      // But hide bar, car, ncr province submenus
+      // But hide bar, car, ncr province submenus and all region province submenus
       if (barmmSubmenu) barmmSubmenu.classList.remove('open');
       if (carSubmenu) carSubmenu.classList.remove('open');
       if (ncrSubmenu) ncrSubmenu.classList.remove('open');
+      regionMenus.forEach(r => {
+        var el = document.getElementById(r.submenu);
+        if (el) el.classList.remove('open');
+      });
 
       function closeAllSubmenus() {
         // Keep regions open, but don't highlight regions menu
@@ -447,9 +675,15 @@
         if (carSubmenu) carSubmenu.classList.remove('open');
         ncrMenu.classList.remove('active');
         if (ncrSubmenu) ncrSubmenu.classList.remove('open');
+        regionMenus.forEach(r => {
+          var menu = document.getElementById(r.menu);
+          var submenu = document.getElementById(r.submenu);
+          if (menu) menu.classList.remove('active');
+          if (submenu) submenu.classList.remove('open');
+        });
       }
 
-      // Only one subsubmenu open at a time
+      // Only one subsubmenu open at a time, for regions with provinces
       function closeSubmenusExcept(id) {
         if (id !== 'barmm') {
           barmmMenu.classList.remove('active');
@@ -463,6 +697,14 @@
           ncrMenu.classList.remove('active');
           if (ncrSubmenu) ncrSubmenu.classList.remove('open');
         }
+        regionMenus.forEach(r => {
+          if (id !== r.menu) {
+            var menu = document.getElementById(r.menu);
+            var submenu = document.getElementById(r.submenu);
+            if (menu) menu.classList.remove('active');
+            if (submenu) submenu.classList.remove('open');
+          }
+        });
       }
 
       // Toggle Regions submenu on click (cannot close, don't activate)
@@ -518,6 +760,25 @@
           }
         });
       }
+
+      // Toggle regions with provinces
+      regionMenus.forEach(r => {
+        var menu = document.getElementById(r.menu);
+        var submenu = document.getElementById(r.submenu);
+        if (menu && submenu) {
+          menu.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = submenu.classList.contains('open');
+            closeSubmenusExcept(r.menu);
+            menu.classList.remove('active');
+            submenu.classList.remove('open');
+            if (!isOpen) {
+              menu.classList.add('active');
+              submenu.classList.add('open');
+            }
+          });
+        }
+      });
 
       // Close submenus when clicking outside, keep regions open but not highlighted
       document.body.addEventListener('click', function (e) {
