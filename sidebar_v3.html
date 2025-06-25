@@ -225,6 +225,7 @@
       min-width: 90px;
       box-shadow: none;
     }
+    /* Remove underline from province links */
     .submenu-item {
       padding: 5px 10px 5px 13px;
       color: #fff;
@@ -246,6 +247,7 @@
       min-height: 22px;
       background: transparent;
       margin-left: 0;
+      text-decoration: none !important; /* Remove underline */
     }
     .submenu-item:hover, .submenu-item:focus, .submenu-item.active {
       background: var(--submenu-hover);
@@ -255,6 +257,7 @@
       transform: scale(1.04) translateX(4px);
       margin-left: 8px;
       z-index: 1;
+      text-decoration: none !important;
     }
     /* Visual difference for provinces under an opened region */
     .submenu.open.parent-open .submenu-item {
@@ -265,12 +268,14 @@
         background 0.18s, 
         border-left 0.18s,
         margin-left 0.18s;
+      text-decoration: none !important;
     }
     .submenu.open.parent-open .submenu-item:hover, 
     .submenu.open.parent-open .submenu-item:focus {
       background: var(--region-highlight);
       color: var(--province-highlight);
       border-left: 4px solid var(--province-highlight);
+      text-decoration: none !important;
     }
     .submenu-arrow {
       margin-left: 8px;
@@ -299,7 +304,6 @@
       <li>
         <a href="#home" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon home" aria-label="Home">
-            <!-- Minimalist home icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <polyline points="8,17 16,9 24,17" stroke="#70c1b3" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               <rect x="11" y="17" width="10" height="7" rx="2" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
@@ -312,7 +316,6 @@
       <li>
         <a href="#gender" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon gender" aria-label="Gender and Development">
-            <!-- Minimalist gender icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <circle cx="13" cy="16" r="5" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
               <circle cx="20" cy="11" r="4" stroke="#ffe066" stroke-width="2.2" fill="none"/>
@@ -328,7 +331,6 @@
       <li>
         <a href="https://experience.arcgis.com/experience/e70b4a0a10444d28a2543d945729eac9/page/LRDAD-in-Action" target="_blank" rel="noopener noreferrer" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon lrdad" aria-label="LRDAD in Action">
-            <!-- Minimalist target/marker icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <circle cx="16" cy="16" r="9" stroke="#ffe066" stroke-width="2.2" fill="none"/>
               <circle cx="16" cy="16" r="5" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
@@ -345,7 +347,6 @@
       <li>
         <a href="#sitemap" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon sitemap" aria-label="Sitemap in Action">
-            <!-- Minimalist sitemap icon -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <rect x="13" y="5" width="6" height="6" rx="2" stroke="#ffe066" stroke-width="2" fill="none"/>
               <line x1="16" y1="11" x2="16" y2="15" stroke="#ffe066" stroke-width="2"/>
@@ -363,7 +364,6 @@
       <li>
         <a href="#guides-tutorials" class="sidebar-menu-item" tabindex="0">
           <span class="sidebar-menu-icon quicksitemap" aria-label="Guides and Tutorials">
-            <!-- Minimalist guide icon: book with search, outlined style -->
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
               <rect x="8" y="7" width="16" height="18" rx="3" stroke="#70c1b3" stroke-width="2.2" fill="none"/>
               <circle cx="16" cy="16" r="3" stroke="#ffe066" stroke-width="2"/>
@@ -402,11 +402,11 @@
             </span>
           </div>
           <div class="submenu barmm-submenu" id="barmmSubmenu">
-            <div class="submenu-item">Basilan</div>
-            <div class="submenu-item">Lanao Del Sur</div>
-            <div class="submenu-item">Maguindanao</div>
-            <div class="submenu-item">Sulu</div>
-            <div class="submenu-item">Tawi</div>
+            <a class="submenu-item" href="" target="_blank">Basilan</a>
+            <a class="submenu-item" href="" target="_blank">Lanao Del Sur</a>
+            <a class="submenu-item" href="" target="_blank">Maguindanao</a>
+            <a class="submenu-item" href="" target="_blank">Sulu</a>
+            <a class="submenu-item" href="" target="_blank">Tawi</a>
           </div>
           <div class="submenu-item car" id="carMenu">
             CAR
@@ -417,12 +417,12 @@
             </span>
           </div>
           <div class="submenu car-submenu" id="carSubmenu">
-            <div class="submenu-item">Abra</div>
-            <div class="submenu-item">Apayao</div>
-            <div class="submenu-item">Benguet</div>
-            <div class="submenu-item">Ifugao</div>
-            <div class="submenu-item">Kalinga</div>
-            <div class="submenu-item">Mountain Province</div>
+            <a class="submenu-item" href="" target="_blank">Abra</a>
+            <a class="submenu-item" href="" target="_blank">Apayao</a>
+            <a class="submenu-item" href="" target="_blank">Benguet</a>
+            <a class="submenu-item" href="" target="_blank">Ifugao</a>
+            <a class="submenu-item" href="" target="_blank">Kalinga</a>
+            <a class="submenu-item" href="" target="_blank">Mountain Province</a>
           </div>
           <div class="submenu-item ncr" id="ncrMenu">
             NCR
@@ -433,7 +433,7 @@
             </span>
           </div>
           <div class="submenu ncr-submenu" id="ncrSubmenu">
-            <div class="submenu-item">Metro Manila</div>
+            <a class="submenu-item" href="" target="_blank">Metro Manila</a>
           </div>
           <div class="submenu-item region1" id="region1Menu">Region I
             <span class="submenu-arrow">
@@ -443,10 +443,10 @@
             </span>
           </div>
           <div class="submenu region1-submenu" id="region1Submenu">
-            <div class="submenu-item">Ilocos Norte</div>
-            <div class="submenu-item">Ilocos Sur</div>
-            <div class="submenu-item">La Union</div>
-            <div class="submenu-item">Pangasinan</div>
+            <a class="submenu-item" href="" target="_blank">Ilocos Norte</a>
+            <a class="submenu-item" href="" target="_blank">Ilocos Sur</a>
+            <a class="submenu-item" href="" target="_blank">La Union</a>
+            <a class="submenu-item" href="" target="_blank">Pangasinan</a>
           </div>
           <div class="submenu-item region2" id="region2Menu">Region II
             <span class="submenu-arrow">
@@ -456,11 +456,11 @@
             </span>
           </div>
           <div class="submenu region2-submenu" id="region2Submenu">
-            <div class="submenu-item">Batanes</div>
-            <div class="submenu-item">Cagayan</div>
-            <div class="submenu-item">Isabela</div>
-            <div class="submenu-item">Nueva Vizcaya</div>
-            <div class="submenu-item">Quirino</div>
+            <a class="submenu-item" href="" target="_blank">Batanes</a>
+            <a class="submenu-item" href="" target="_blank">Cagayan</a>
+            <a class="submenu-item" href="" target="_blank">Isabela</a>
+            <a class="submenu-item" href="" target="_blank">Nueva Vizcaya</a>
+            <a class="submenu-item" href="" target="_blank">Quirino</a>
           </div>
           <div class="submenu-item region3" id="region3Menu">Region III
             <span class="submenu-arrow">
@@ -470,13 +470,13 @@
             </span>
           </div>
           <div class="submenu region3-submenu" id="region3Submenu">
-            <div class="submenu-item">Aurora</div>
-            <div class="submenu-item">Bataan</div>
-            <div class="submenu-item">Bulacan</div>
-            <div class="submenu-item">Nueva Ecija</div>
-            <div class="submenu-item">Pampanga</div>
-            <div class="submenu-item">Tarlac</div>
-            <div class="submenu-item">Zambales</div>
+            <a class="submenu-item" href="" target="_blank">Aurora</a>
+            <a class="submenu-item" href="" target="_blank">Bataan</a>
+            <a class="submenu-item" href="" target="_blank">Bulacan</a>
+            <a class="submenu-item" href="" target="_blank">Nueva Ecija</a>
+            <a class="submenu-item" href="" target="_blank">Pampanga</a>
+            <a class="submenu-item" href="" target="_blank">Tarlac</a>
+            <a class="submenu-item" href="" target="_blank">Zambales</a>
           </div>
           <div class="submenu-item region4a" id="region4aMenu">Region IV-A
             <span class="submenu-arrow">
@@ -486,11 +486,11 @@
             </span>
           </div>
           <div class="submenu region4a-submenu" id="region4aSubmenu">
-            <div class="submenu-item">Batangas</div>
-            <div class="submenu-item">Cavite</div>
-            <div class="submenu-item">Laguna</div>
-            <div class="submenu-item">Quezon</div>
-            <div class="submenu-item">Rizal</div>
+            <a class="submenu-item" href="" target="_blank">Batangas</a>
+            <a class="submenu-item" href="" target="_blank">Cavite</a>
+            <a class="submenu-item" href="" target="_blank">Laguna</a>
+            <a class="submenu-item" href="" target="_blank">Quezon</a>
+            <a class="submenu-item" href="" target="_blank">Rizal</a>
           </div>
           <div class="submenu-item region4b" id="region4bMenu">Region IV-B
             <span class="submenu-arrow">
@@ -500,11 +500,11 @@
             </span>
           </div>
           <div class="submenu region4b-submenu" id="region4bSubmenu">
-            <div class="submenu-item">Marinduque</div>
-            <div class="submenu-item">Occidental Mindoro</div>
-            <div class="submenu-item">Oriental Mindoro</div>
-            <div class="submenu-item">Palawan</div>
-            <div class="submenu-item">Romblon</div>
+            <a class="submenu-item" href="" target="_blank">Marinduque</a>
+            <a class="submenu-item" href="" target="_blank">Occidental Mindoro</a>
+            <a class="submenu-item" href="" target="_blank">Oriental Mindoro</a>
+            <a class="submenu-item" href="" target="_blank">Palawan</a>
+            <a class="submenu-item" href="" target="_blank">Romblon</a>
           </div>
           <div class="submenu-item region5" id="region5Menu">Region V
             <span class="submenu-arrow">
@@ -514,12 +514,12 @@
             </span>
           </div>
           <div class="submenu region5-submenu" id="region5Submenu">
-            <div class="submenu-item">Albay</div>
-            <div class="submenu-item">Camarines Norte</div>
-            <div class="submenu-item">Camarines Sur</div>
-            <div class="submenu-item">Catanduanes</div>
-            <div class="submenu-item">Masbate</div>
-            <div class="submenu-item">Sorsogon</div>
+            <a class="submenu-item" href="" target="_blank">Albay</a>
+            <a class="submenu-item" href="" target="_blank">Camarines Norte</a>
+            <a class="submenu-item" href="" target="_blank">Camarines Sur</a>
+            <a class="submenu-item" href="" target="_blank">Catanduanes</a>
+            <a class="submenu-item" href="" target="_blank">Masbate</a>
+            <a class="submenu-item" href="" target="_blank">Sorsogon</a>
           </div>
           <div class="submenu-item region6" id="region6Menu">Region VI
             <span class="submenu-arrow">
@@ -529,12 +529,12 @@
             </span>
           </div>
           <div class="submenu region6-submenu" id="region6Submenu">
-            <div class="submenu-item">Aklan</div>
-            <div class="submenu-item">Antique</div>
-            <div class="submenu-item">Capiz</div>
-            <div class="submenu-item">Guimaras</div>
-            <div class="submenu-item">Iloilo</div>
-            <div class="submenu-item">Negros Occidental</div>
+            <a class="submenu-item" href="" target="_blank">Aklan</a>
+            <a class="submenu-item" href="" target="_blank">Antique</a>
+            <a class="submenu-item" href="" target="_blank">Capiz</a>
+            <a class="submenu-item" href="" target="_blank">Guimaras</a>
+            <a class="submenu-item" href="" target="_blank">Iloilo</a>
+            <a class="submenu-item" href="" target="_blank">Negros Occidental</a>
           </div>
           <div class="submenu-item region7" id="region7Menu">Region VII
             <span class="submenu-arrow">
@@ -544,10 +544,10 @@
             </span>
           </div>
           <div class="submenu region7-submenu" id="region7Submenu">
-            <div class="submenu-item">Bohol</div>
-            <div class="submenu-item">Cebu</div>
-            <div class="submenu-item">Negros Oriental</div>
-            <div class="submenu-item">Siquijor</div>
+            <a class="submenu-item" href="" target="_blank">Bohol</a>
+            <a class="submenu-item" href="" target="_blank">Cebu</a>
+            <a class="submenu-item" href="" target="_blank">Negros Oriental</a>
+            <a class="submenu-item" href="" target="_blank">Siquijor</a>
           </div>
           <div class="submenu-item region8" id="region8Menu">Region VIII
             <span class="submenu-arrow">
@@ -557,12 +557,12 @@
             </span>
           </div>
           <div class="submenu region8-submenu" id="region8Submenu">
-            <div class="submenu-item">Biliran</div>
-            <div class="submenu-item">Samar</div>
-            <div class="submenu-item">Eastern Samar</div>
-            <div class="submenu-item">Northern Samar</div>
-            <div class="submenu-item">Leyte</div>
-            <div class="submenu-item">Southern Leyte</div>
+            <a class="submenu-item" href="" target="_blank">Biliran</a>
+            <a class="submenu-item" href="" target="_blank">Samar</a>
+            <a class="submenu-item" href="" target="_blank">Eastern Samar</a>
+            <a class="submenu-item" href="" target="_blank">Northern Samar</a>
+            <a class="submenu-item" href="" target="_blank">Leyte</a>
+            <a class="submenu-item" href="" target="_blank">Southern Leyte</a>
           </div>
           <div class="submenu-item region9" id="region9Menu">Region IX
             <span class="submenu-arrow">
@@ -572,11 +572,11 @@
             </span>
           </div>
           <div class="submenu region9-submenu" id="region9Submenu">
-            <div class="submenu-item">Zamboanga Del Norte</div>
-            <div class="submenu-item">Zamboanga Del Sur</div>
-            <div class="submenu-item">Zamboanga Sibugay</div>
-            <div class="submenu-item">City of Zamboanga</div>
-            <div class="submenu-item">City of Isabela</div>
+            <a class="submenu-item" href="" target="_blank">Zamboanga Del Norte</a>
+            <a class="submenu-item" href="" target="_blank">Zamboanga Del Sur</a>
+            <a class="submenu-item" href="" target="_blank">Zamboanga Sibugay</a>
+            <a class="submenu-item" href="" target="_blank">City of Zamboanga</a>
+            <a class="submenu-item" href="" target="_blank">City of Isabela</a>
           </div>
           <div class="submenu-item region10" id="region10Menu">Region X
             <span class="submenu-arrow">
@@ -586,11 +586,11 @@
             </span>
           </div>
           <div class="submenu region10-submenu" id="region10Submenu">
-            <div class="submenu-item">Bukidnon</div>
-            <div class="submenu-item">Camiguin</div>
-            <div class="submenu-item">Lanao Del Norte</div>
-            <div class="submenu-item">Misamis Occidental</div>
-            <div class="submenu-item">Misamis Oriental</div>
+            <a class="submenu-item" href="" target="_blank">Bukidnon</a>
+            <a class="submenu-item" href="" target="_blank">Camiguin</a>
+            <a class="submenu-item" href="" target="_blank">Lanao Del Norte</a>
+            <a class="submenu-item" href="" target="_blank">Misamis Occidental</a>
+            <a class="submenu-item" href="" target="_blank">Misamis Oriental</a>
           </div>
           <div class="submenu-item region11" id="region11Menu">Region XI
             <span class="submenu-arrow">
@@ -600,11 +600,11 @@
             </span>
           </div>
           <div class="submenu region11-submenu" id="region11Submenu">
-            <div class="submenu-item">Davao De Oro</div>
-            <div class="submenu-item">Davao Del Norte</div>
-            <div class="submenu-item">Davao Del Sur</div>
-            <div class="submenu-item">Davao Occidental</div>
-            <div class="submenu-item">Davao Oriental</div>
+            <a class="submenu-item" href="" target="_blank">Davao De Oro</a>
+            <a class="submenu-item" href="" target="_blank">Davao Del Norte</a>
+            <a class="submenu-item" href="" target="_blank">Davao Del Sur</a>
+            <a class="submenu-item" href="" target="_blank">Davao Occidental</a>
+            <a class="submenu-item" href="https://namria.maps.arcgis.com/apps/webappviewer/index.html?id=d33b44022215437a81dc618153fd1915" target="_blank">Davao Oriental</a>
           </div>
           <div class="submenu-item region12" id="region12Menu">Region XII
             <span class="submenu-arrow">
@@ -614,10 +614,10 @@
             </span>
           </div>
           <div class="submenu region12-submenu" id="region12Submenu">
-            <div class="submenu-item">Cotabato</div>
-            <div class="submenu-item">Sarangani</div>
-            <div class="submenu-item">South Cotabato</div>
-            <div class="submenu-item">Sultan Kudarat</div>
+            <a class="submenu-item" href="" target="_blank">Cotabato</a>
+            <a class="submenu-item" href="" target="_blank">Sarangani</a>
+            <a class="submenu-item" href="" target="_blank">South Cotabato</a>
+            <a class="submenu-item" href="" target="_blank">Sultan Kudarat</a>
           </div>
           <div class="submenu-item region13" id="region13Menu">Region XIII
             <span class="submenu-arrow">
@@ -627,11 +627,11 @@
             </span>
           </div>
           <div class="submenu region13-submenu" id="region13Submenu">
-            <div class="submenu-item">Agusan Del Norte</div>
-            <div class="submenu-item">Agusan Del Sur</div>
-            <div class="submenu-item">Dinagat Islands</div>
-            <div class="submenu-item">Surigao Del Norte</div>
-            <div class="submenu-item">Surigao Del Sur</div>
+            <a class="submenu-item" href="" target="_blank">Agusan Del Norte</a>
+            <a class="submenu-item" href="" target="_blank">Agusan Del Sur</a>
+            <a class="submenu-item" href="" target="_blank">Dinagat Islands</a>
+            <a class="submenu-item" href="" target="_blank">Surigao Del Norte</a>
+            <a class="submenu-item" href="" target="_blank">Surigao Del Sur</a>
           </div>
         </div>
       </li>
@@ -668,10 +668,8 @@
       const ncrMenu = document.getElementById('ncrMenu');
       const ncrSubmenu = document.getElementById('ncrSubmenu');
 
-      // Keep regions submenu open by default, but don't highlight regions menu
       if (regionsSubmenu) regionsSubmenu.classList.add('open');
       if (regionsMenu) regionsMenu.classList.remove('active');
-      // Hide bar, car, ncr, and all region province submenus
       if (barmmSubmenu) barmmSubmenu.classList.remove('open');
       if (carSubmenu) carSubmenu.classList.remove('open');
       if (ncrSubmenu) ncrSubmenu.classList.remove('open');
@@ -682,10 +680,8 @@
       });
 
       function closeAllSubmenus() {
-        // Keep regions open, but don't highlight regions menu
         if (regionsMenu) regionsMenu.classList.remove('active');
         if (regionsSubmenu) regionsSubmenu.classList.add('open');
-        // Hide others
         barmmMenu.classList.remove('active');
         if (barmmSubmenu) barmmSubmenu.classList.remove('open');
         carMenu.classList.remove('active');
@@ -703,7 +699,6 @@
         });
       }
 
-      // Only one subsubmenu open at a time, for regions with provinces
       function closeSubmenusExcept(id) {
         if (id !== 'barmm') {
           barmmMenu.classList.remove('active');
@@ -739,7 +734,6 @@
         });
       }
 
-      // Toggle BARMM submenu on click, and hide others
       if (barmmMenu && barmmSubmenu) {
         barmmMenu.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -757,7 +751,6 @@
         });
       }
 
-      // Toggle CAR submenu on click, and hide others
       if (carMenu && carSubmenu) {
         carMenu.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -775,7 +768,6 @@
         });
       }
 
-      // Toggle NCR submenu on click, and hide others
       if (ncrMenu && ncrSubmenu) {
         ncrMenu.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -793,7 +785,6 @@
         });
       }
 
-      // Toggle regions with provinces
       regionMenus.forEach(r => {
         var menu = document.getElementById(r.menu);
         var submenu = document.getElementById(r.submenu);
@@ -814,12 +805,10 @@
         }
       });
 
-      // Close submenus when clicking outside, keep regions open but not highlighted
       document.body.addEventListener('click', function (e) {
         closeAllSubmenus();
       });
 
-      // Prevent closing when clicking inside
       if (regionsSubmenu) {
         regionsSubmenu.addEventListener('click', function (e) {
           e.stopPropagation();
